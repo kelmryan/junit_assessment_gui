@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Test Results</title>
+    <!--CSS code style-->
     <style>
         body {
             background-color: black;
@@ -47,6 +48,7 @@
   <body>
     <div class="container">
       <h1>Test Results</h1>
+      <!--  Jinja for loop for test suites-->
       {% for suite in test_suites %}
         <h2>{{ suite.name }}</h2>
         <table border="1">
@@ -83,6 +85,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <!-- jinja code  for loop for test cases failing-->
                   {% for case in suite.testcases %}
                     {% if case.failure %}
                       <tr>
@@ -100,6 +103,7 @@
         <div>
             <span class="dropdown-btn green-box" onclick="toggleDropdown(this)">Show Passing Tests</span>
             <div class="dropdown">
+              <!-- create table -->
               <table border="1">
                 <thead>
                   <tr>
@@ -109,6 +113,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <!-- jinja code for loop for test cases passing -->
                   {% for case in suite.testcases %}
                     {% if not case.failure %}
                       <tr>
@@ -122,9 +127,11 @@
               </table>
             </div>
         </div>
-        <script>
+        <!--JavaScript function to toggle the dropdown -->
+        <script>           
             function toggleDropdown(element) {
               var dropdown = element.nextElementSibling;
+              // check if the dropdown is hidden otherwise show it
               if (dropdown.style.display === "none" || dropdown.style.display === "") {
                   dropdown.style.display = "block";
                   element.textContent = element.textContent.replace("Show", "Hide");
