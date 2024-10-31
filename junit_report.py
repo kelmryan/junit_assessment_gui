@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import os
 
 import xml.etree.ElementTree as ET
 
@@ -9,7 +10,7 @@ def parse_test_results(file_path):
     root = tree.getroot()
 
     test_suites = []
-
+    #associate the test suite with the test cases
     for testsuite in root.findall('testsuite'):
         suite = {
             'name': testsuite.get('name'),
@@ -22,7 +23,7 @@ def parse_test_results(file_path):
             'hostname': testsuite.get('hostname'),
             'testcases': []
         }
-
+        # loop through the test cases to identify the test case name, class name, time taken and failure message
         for testcase in testsuite.findall('testcase'):
             case = {
                 'classname': testcase.get('classname'),
@@ -30,20 +31,20 @@ def parse_test_results(file_path):
                 'time': testcase.get('time'),
                 'failure': None
             }
-
+            # check if the test case has a failure message
             failure = testcase.find('failure')
             if failure is not None:
                 case['failure'] = failure.text
-
+            #append the test case to the test cases list
             suite['testcases'].append(case)
-
+        #append the test suite to the test suites list
         test_suites.append(suite)
 
     return test_suites
 
 @app.route('/')
 def index():
-    file_path = r'F:\programming\junit_assessment_gui\test_results\results.xml'
+    file_path = os.path.join(os.path.dirname(__file__), 'test_results', 'results.xml')
     test_suites = parse_test_results(file_path)
     return render_template('index.html', test_suites=test_suites)
 
