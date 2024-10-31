@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test Results</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        .green {
+            color: green;
+        }
+        .red {
+            color: red;
+        }
+        .boxed {
+          border: 1px solid blue;
+          padding: 10px;
+          background-color: lightblue;
+        }
+        .dropdown {
+          display: none;
+        }
+        .dropdown-btn {
+          cursor: pointer;
+          color: blue;
+          text-decoration: underline;
+        }
+        .red-box {
+          border: 2px solid red;
+          padding: 5px;
+          display: inline-block;
+          background-color: red;
+          color: white;
+        }
+        .green-box {
+          border: 2px solid green;
+          padding: 5px;
+          display: inline-block;
+          background-color: green;
+          color: white;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Test Results</h1>
+      {% for suite in test_suites %}
+        <h2>{{ suite.name }}</h2>
+        <table border="1">
+          <tr>
+            <th>Tests</th>
+            <th>Failures</th>
+            <th>Errors</th>
+            <th>Skipped</th>
+            <th>Time</th>
+            <th>Timestamp</th>
+            <th>Hostname</th>
+          </tr>
+          <tr>
+            <td>{{ suite.tests }}</td>
+            <td>{{ suite.failures }}</td>
+            <td>{{ suite.errors }}</td>
+            <td>{{ suite.skipped }}</td>
+            <td>{{ suite.time }}</td>
+            <td>{{ suite.timestamp }}</td>
+            <td>{{ suite.hostname }}</td>
+          </tr>
+        </table>
+        <h3 class="boxed">Test Cases</h3>
+        <div>
+            <span class="dropdown-btn red-box" onclick="toggleDropdown(this)">Show Failed Tests</span>
+            <div class="dropdown">
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Class Name</th>
+                    <th>Test Name</th>
+                    <th>Time</th>
+                    <th>Failure</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for case in suite.testcases %}
+                    {% if case.failure %}
+                      <tr>
+                        <td>{{ case.classname }}</td>
+                        <td>{{ case.name }}</td>
+                        <td>{{ case.time }}</td>
+                        <td class="red">{{ case.failure }}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <div>
+            <span class="dropdown-btn green-box" onclick="toggleDropdown(this)">Show Passing Tests</span>
+            <div class="dropdown">
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Class Name</th>
+                    <th>Test Name</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for case in suite.testcases %}
+                    {% if not case.failure %}
+                      <tr>
+                        <td>{{ case.classname }}</td>
+                        <td>{{ case.name }}</td>
+                        <td>{{ case.time }}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <script>
+            function toggleDropdown(element) {
+              var dropdown = element.nextElementSibling;
+              if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                  dropdown.style.display = "block";
+                  element.textContent = element.textContent.replace("Show", "Hide");
+              } else {
+                  dropdown.style.display = "none";
+                  element.textContent = element.textContent.replace("Hide", "Show");
+              }
+            }
+        </script>
+      {% endfor %}
+    </div>
+  </body>
+</html>
