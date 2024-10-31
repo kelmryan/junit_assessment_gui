@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites time="1.972">
-<testsuite name="istio-tenant.bats" tests="6" failures="3" errors="0" skipped="0" time="1.972" timestamp="2024-10-29T17:44:41" hostname="192.168.1.1">
-    <testcase classname="istio-tenant.bats" name="Limit Destionation rules to a single host| Istio-T-0001 " time="0.150" />
-    <testcase classname="istio-tenant.bats" name="Limit virtualservice export to namespaces | Istio-T-0002 " time="0.169" />
-    <testcase classname="istio-tenant.bats" name="Restrict Cross-Origin Resource Sharing (CORS) domains - Virtual Service | Istio-T-0003 " time="0.892" />
-    <testcase classname="istio-tenant.bats" name="Enable mTLS in DestionationRule within foo-devdevelopment-service| Istio-T-0004" time="0.393">
-        <failure type="failure">(in test file scripts/bats/service/istio-tenant.bats, line 54)
-  `./scripts/auth_istio.sh &quot;destinationrule&quot; &quot;Verifies destination rule has mTLS enabled in $NAMESPACE &quot; &quot;$NAMESPACE&quot; &quot;{name: .metadata.name, tls: .spec.trafficPolicy.portLevelSettings.tls.mode}&quot; &quot;Istio-T-0004&quot; &quot;tls&quot;&#39; failed
+<testsuite name="service.bats" tests="6" failures="3" errors="0" skipped="0" time="1.972" timestamp="2024-10-29T17:44:41" hostname="192.168.1.1">
+    <testcase classname="service.bats" name="Limit Destionation rules to a single host| Service-T-0001 " time="0.150" />
+    <testcase classname="service.bats" name="Limit virtualservice export to namespaces | Service-T-0002 " time="0.169" />
+    <testcase classname="service.bats" name="Restrict Cross-Origin Resource Sharing (CORS) domains - Virtual Service | Service-T-0003 " time="0.892" />
+    <testcase classname="service.bats" name="Enable mTLS in DestionationRule within foo-devdevelopment-service| Service-T-0004" time="0.393">
+        <failure type="failure">(service.bats, line 54)
+  `./scripts/auth_Service.sh &quot;destinationrule&quot; &quot;Verifies destination rule has mTLS enabled in $NAMESPACE &quot; &quot;$NAMESPACE&quot; &quot;{name: .metadata.name, tls: .spec.trafficPolicy.portLevelSettings.tls.mode}&quot; &quot;Service-T-0004&quot; &quot;tls&quot;&#39; failed
  
 ==========  Verifies destination rule has mTLS enabled in foo-devdevelopment-service for eds-api-services-v1-eds-authentication-dr  ==========
  
-❌ Check-Fail based on differences within Assessed Policy policy/istio/dev/development-service/destinationrule/eds-api-services-v1-eds-authentication-dr/tls.txt
-            policy/istio/dev/development-service/destinationrule/eds-api-services-v1-eds-authentication-dr/tls.txt | results.json
+❌ Check-Fail based on differences within Assessed Policy policy/Service/dev/development-service/destinationrule/eds-api-services-v1-eds-authentication-dr/tls.txt
+            policy/Service/dev/development-service/destinationrule/eds-api-services-v1-eds-authentication-dr/tls.txt | results.json
               &quot;tls&quot;: &quot;MUTUAL&quot;               |   &quot;tls&quot;: null
 </failure>
     </testcase>
-    <testcase classname="istio-tenant.bats" name="Limit Virtual Service is bound to gateway in foo-dev| Istio-T-0005" time="0.158">
-        <failure type="failure">(in test file scripts/bats/service/istio-tenant.bats, line 63)
-  `./scripts/istio_filter.sh &quot;policy/istio/$VPC/$NAMESPACE/virtualservice/vs_gdl_gateway.txt&quot; &quot;virtualservices -n $NAMESPACE&quot; &quot;Verify virtual service is tied to a gateway for GDL $NAMESPACE &quot; &quot;.items[]? | {name: .metadata.name, ns: .metadata.namespace, Gateway: .spec.gateways[]?}&quot; &quot;Istio-T-0005&quot;&#39; failed
+    <testcase classname="service.bats" name="Limit Virtual Service is bound to gateway in foo-dev| Service-T-0005" time="0.158">
+        <failure type="failure">(service.bats, line 63)
+  `./scripts/Service_filter.sh &quot;policy/Service/$VPC/$NAMESPACE/virtualservice/vs_gdl_gateway.txt&quot; &quot;virtualservices -n $NAMESPACE&quot; &quot;Verify virtual service is tied to a gateway for GDL $NAMESPACE &quot; &quot;.items[]? | {name: .metadata.name, ns: .metadata.namespace, Gateway: .spec.gateways[]?}&quot; &quot;Service-T-0005&quot;&#39; failed
  
 ==========  Verify virtual service is tied to a gateway for GDL foo-devdevelopment-service  ==========
  
-❌ Failed based on differences with Assessed Policy policy/istio/dev/development-service/virtualservice/vs_gdl_gateway.txt Diff
-              &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;uradaar-gprod-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
+❌ Failed based on differences with Assessed Policy policy/Service/dev/development-service/virtualservice/vs_gdl_gateway.txt Diff
+              &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;uradaar-gprod-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
 </failure>
     </testcase>
-    <testcase classname="istio-tenant.bats" name="Restrict gateway to Virtual service in foo-devdevelopment-service| Istio-T-0006" time="0.210">
-        <failure type="failure">(in test file scripts/bats/service/istio-tenant.bats, line 79)
-  `./scripts/istio_filter.sh &quot;policy/istio/$VPC/$NAMESPACE/virtualservice/vs_gdl_gateway.txt&quot; &quot;virtualservices -n $NAMESPACE&quot; &quot;Verify virtual service is tied to a gateway for GDL $NAMESPACE &quot; &quot;.items[]? | {name: .metadata.name, ns: .metadata.namespace, Gateway: .spec.gateways[]?}&quot; &quot;Istio-T-0006&quot;&#39; failed
+    <testcase classname="service.bats" name="Restrict gateway to Virtual service in foo-devdevelopment-service| Service-T-0006" time="0.210">
+        <failure type="failure">(service.bats, line 79)
+  `./scripts/Service_filter.sh &quot;policy/Service/$VPC/$NAMESPACE/virtualservice/vs_gdl_gateway.txt&quot; &quot;virtualservices -n $NAMESPACE&quot; &quot;Verify virtual service is tied to a gateway for GDL $NAMESPACE &quot; &quot;.items[]? | {name: .metadata.name, ns: .metadata.namespace, Gateway: .spec.gateways[]?}&quot; &quot;Service-T-0006&quot;&#39; failed
  
 ==========  Verify virtual service is tied to a gateway for GDL foo-devdevelopment-service  ==========
  
-❌ Failed based on differences with Assessed Policy policy/istio/dev/development-service/virtualservice/vs_gdl_gateway.txt Diff
-              &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
-  &quot;Gateway&quot;: &quot;foo-dev-datalake-istio-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-istio-system/foo-dev-
+❌ Failed based on differences with Assessed Policy policy/Service/dev/development-service/virtualservice/vs_gdl_gateway.txt Diff
+              &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
+  &quot;Gateway&quot;: &quot;foo-dev-foo-Service-system/foo |    &quot;Gateway&quot;: &quot;foo-dev-Service-system/foo-dev-
 </failure>
     </testcase>
  
